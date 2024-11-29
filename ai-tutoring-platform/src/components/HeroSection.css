@@ -1,0 +1,22 @@
+/* src/components/HeroSection.css */
+.hero {
+    background-color: #805ad5; /* Adjust color as needed */
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+  }
+  
+  .cta-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #5a67d8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .cta-button:hover {
+    background-color: #4c51bf;
+  }
+  

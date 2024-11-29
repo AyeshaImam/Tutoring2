@@ -1,0 +1,11 @@
+/* src/components/Testimonials.css */
+.testimonials-section {
+    padding: 40px;
+    text-align: center;
+  }
+  
+  .testimonials blockquote {
+    font-style: italic;
+    margin: 20px 0;
+  }
+  

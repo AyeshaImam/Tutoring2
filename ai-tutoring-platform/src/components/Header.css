@@ -1,0 +1,29 @@
+/* src/components/Header.css */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #805ad5; /* You can change this color */
+  color: white;
+}
+
+.header nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header nav ul li {
+  display: inline;
+  margin: 0 15px;
+}
+
+.header nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.header .logo {
+  font-size: 1.5em; /* Adjust logo size as needed */
+}

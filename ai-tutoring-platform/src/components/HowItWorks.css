@@ -1,0 +1,18 @@
+/* src/components/HowItWorks.css */
+.how-it-works-section {
+  padding: 40px;
+  text-align: left; /* Ensure text is left-aligned */
+}
+
+.how-it-works-section h2 {
+  color: #333;
+}
+
+.how-it-works-section ol {
+  padding-left: 20px; /* Add indentation for the ordered list */
+}
+
+.how-it-works-section li {
+  margin: 10px 0; /* Add spacing between list items */
+  font-size: 1.2em; /* Increase font size for readability */
+}

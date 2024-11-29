@@ -1,0 +1,149 @@
+/* src/pages/HowItWorksPage.css */
+.how-it-works-page {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hiw-header {
+  text-align: center;
+  margin-bottom: 60px;
+  padding: 40px;
+  background: linear-gradient(135deg, #5a67d8 0%, #4c51bf 100%);
+  border-radius: 16px;
+  color: white;
+}
+
+.hiw-header h1 {
+  font-size: 3em;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.hiw-subtitle {
+  font-size: 1.2em;
+  opacity: 0.9;
+}
+
+.steps-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin: 40px 0;
+}
+
+.step-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  position: relative;
+  transition: transform 0.3s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.step-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.step-number {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 1.5em;
+  font-weight: 700;
+  color: #5a67d8;
+  opacity: 0.2;
+}
+
+.step-icon {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.step-content h3 {
+  color: #2d3748;
+  font-size: 1.4em;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.step-content p {
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+.hiw-cta {
+  text-align: center;
+  margin-top: 60px;
+  padding: 40px;
+  background: #f7fafc;
+  border-radius: 12px;
+}
+
+.hiw-cta h2 {
+  color: #2d3748;
+  font-size: 2em;
+  margin-bottom: 24px;
+}
+
+.start-button {
+  background: #5a67d8;
+  color: white;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.start-button:hover {
+  background: #4c51bf;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .how-it-works-page {
+    padding: 40px 16px;
+  }
+
+  .hiw-header {
+    padding: 30px 20px;
+    margin-bottom: 40px;
+  }
+
+  .hiw-header h1 {
+    font-size: 2em;
+  }
+
+  .steps-container {
+    gap: 20px;
+  }
+
+  .step-card {
+    padding: 24px;
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.step-card {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.step-card:nth-child(n) {
+  animation-delay: calc(0.1s * var(--i));
+}
+  

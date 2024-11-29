@@ -1,0 +1,59 @@
+/* src/pages/Home.css */
+.home {
+  font-family: Arial, sans-serif;
+}
+
+.hero {
+  background-color: #805ad5; /* Adjust this color as needed */
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.5em;
+  margin-bottom: 30px;
+}
+
+.cta-button {
+  margin: 10px;
+  padding: 8px 16px; /* Reduce padding for smaller buttons */
+  background-color: #5a67d8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em; /* Smaller font size */
+}
+
+.cta-button:hover {
+  background-color: #4c51bf;
+}
+
+.why-us {
+  padding: 40px;
+  background-color: #f9f9f9; /* Light background for contrast */
+  border-radius: 8px; /* Rounded corners */
+  margin: 20px; /* Margin around section */
+  text-align: left; /* Left-align text */
+}
+
+.why-us h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.why-us ul {
+  list-style-type: disc; /* Use disc for bullet points */
+  padding-left: 20px; /* Indentation for bullet points */
+}
+
+.why-us li {
+  font-size: 1.1em; /* Slightly larger font size for readability */
+  margin: 10px 0; /* Space between items */
+}

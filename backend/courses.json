@@ -1,0 +1,82 @@
+[
+  {
+    "title": "Introduction to Artificial Intelligence",
+    "description": "A foundational course exploring the basics of AI, machine learning, and neural networks.",
+    "creditHours": 4,
+    "teacher": "6738f6ad1e7dd294b40715c8",
+    "lessons": [],
+    "quizzes": []
+  },
+  {
+    "title": "Data Structures and Algorithms",
+    "description": "An in-depth study of data organization and problem-solving techniques in computer science.",
+    "creditHours": 4,
+    "teacher": "6738f6ad1e7dd294b40715c8",
+    "lessons": [],
+    "quizzes": []
+  },
+  {
+    "title": "Web Development Basics",
+    "description": "Learn how to build dynamic and responsive websites using HTML, CSS, and JavaScript.",
+    "creditHours": 3,
+    "teacher": "6738f6ad1e7dd294b40715c8",
+    "lessons": [],
+    "quizzes": []
+  },
+  {
+    "title": "Database Management Systems",
+    "description": "An overview of relational databases, SQL, and database management systems.",
+    "creditHours": 3,
+    "teacher": "6738f6ad1e7dd294b40715c8",
+    "lessons": [],
+    "quizzes": []
+  },
+  {
+    "title": "Introduction to Cybersecurity",
+    "description": "Covers the basics of network security, cryptography, and risk management.",
+    "creditHours": 3,
+    "teacher": "6738f6ad1e7dd294b40715c8",
+    "lessons": [],
+    "quizzes": []
+  },
+  {
+    "title": "Operating Systems Concepts",
+    "description": "Study the fundamentals of operating systems, including memory management and process scheduling.",
+    "creditHours": 4,
+    "teacher": "6738f6ad1e7dd294b40715c8",
+    "lessons": [],
+    "quizzes": []
+  },
+  {
+    "title": "Introduction to Machine Learning",
+    "description": "Learn basic machine learning algorithms and their applications.",
+    "creditHours": 4,
+    "teacher": "6738f6ad1e7dd294b40715c8",
+    "lessons": [],
+    "quizzes": []
+  },
+  {
+    "title": "Mobile Application Development",
+    "description": "Develop mobile apps using frameworks like React Native or Flutter.",
+    "creditHours": 3,
+    "teacher": "6738f6ad1e7dd294b40715c8",
+    "lessons": [],
+    "quizzes": []
+  },
+  {
+    "title": "Introduction to Cloud Computing",
+    "description": "Explore cloud platforms, virtualization, and cloud service models.",
+    "creditHours": 3,
+    "teacher": "6738f6ad1e7dd294b40715c8",
+    "lessons": [],
+    "quizzes": []
+  },
+  {
+    "title": "Introduction to Data Science",
+    "description": "Learn how to analyze data using Python and statistical techniques.",
+    "creditHours": 4,
+    "teacher": "6738f6ad1e7dd294b40715c8",
+    "lessons": [],
+    "quizzes": []
+  }
+]

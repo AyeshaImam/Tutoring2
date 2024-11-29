@@ -1,0 +1,79 @@
+/* src/components/WhyUs.css */
+.why-us {
+  padding: 80px 20px;
+  background-color: #f8fafc;
+}
+
+.why-us-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.why-us h2 {
+  text-align: center;
+  font-size: 2.5em;
+  color: #2d3748;
+  margin-bottom: 16px;
+}
+
+.why-us .subtitle {
+  text-align: center;
+  color: #4a5568;
+  font-size: 1.2em;
+  margin-bottom: 48px;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  padding: 20px;
+}
+
+.benefit-card {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.benefit-icon {
+  font-size: 2.5em;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.benefit-card h3 {
+  color: #2d3748;
+  font-size: 1.5em;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.benefit-card p {
+  color: #4a5568;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .why-us {
+    padding: 40px 20px;
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .why-us h2 {
+    font-size: 2em;
+  }
+} 

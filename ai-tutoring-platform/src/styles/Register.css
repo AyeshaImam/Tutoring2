@@ -1,0 +1,103 @@
+.register-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+  }
+  
+  .register-container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .register-container h2 {
+    margin-bottom: 1rem;
+    color: #333333;
+    font-size: 1.5rem;
+  }
+  
+  .error-message {
+    color: #ff4d4d;
+    background-color: #ffe6e6;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+  }
+  
+  .register-form input[type="text"],
+  .register-form input[type="email"],
+  .register-form input[type="password"] {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  .register-form input[type="text"]:focus,
+  .register-form input[type="email"]:focus,
+  .register-form input[type="password"]:focus {
+    outline: none;
+    border-color: #6a11cb;
+  }
+  
+  .terms-checkbox {
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    color: #555555;
+  }
+  
+  .terms-checkbox label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .terms-checkbox input[type="checkbox"] {
+    accent-color: #6a11cb;
+  }
+  
+  .register-form button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #6a11cb;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .register-form button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .register-form button:not(:disabled):hover {
+    background-color: #2575fc;
+  }
+  
+  .login-redirect {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .login-redirect a {
+    color: #6a11cb;
+    text-decoration: none;
+  }
+  
+  .login-redirect a:hover {
+    text-decoration: underline;
+  }
+  
