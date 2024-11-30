@@ -23,7 +23,7 @@ router.get("/me", authenticateToken, async (req, res) => {
 
     // Return user data
     res.status(200).json({
-      userId: user._id,
+      _id: user._id,
       fullName: user.fullName,
       email: user.email,
       role: user.role,

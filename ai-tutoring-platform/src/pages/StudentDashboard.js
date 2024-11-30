@@ -1,76 +1,95 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import '../styles/StudentDashboard.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "../styles/StudentDashboard.css";
+import { useContext } from "react";
+import { UserContext } from "../components/UserContext"; // Import UserContext
 
 const StudentDashboard = () => {
+  const { user, isAuthenticated, loading } = useContext(UserContext); // Access user data and authentication state from context
   const [courses, setCourses] = useState([]);
   const [registeredCourses, setRegisteredCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [lessons, setLessons] = useState([]);
   const [quizzes, setQuizzes] = useState([]);
-  const [view, setView] = useState(''); // 'lessons' or 'quizzes'
+  const [view, setView] = useState(""); // 'lessons' or 'quizzes'
   const [quizToTake, setQuizToTake] = useState(null); // Quiz object to take
   const [answers, setAnswers] = useState([]); // Student's answers
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    fetchAvailableCourses();
-    fetchRegisteredCourses();
-  }, []);
+    if (user && isAuthenticated) {
+      fetchAvailableCourses();
+      fetchRegisteredCourses();
+    }
+  }, [user, isAuthenticated]);
 
   const fetchAvailableCourses = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/courses/available');
+      const response = await axios.get(
+        `http://localhost:5000/student/${user._id}/courses/notRegistered`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
       setCourses(response.data);
     } catch (err) {
-      setError('Failed to fetch available courses. Please try again later.');
+      setError("Failed to fetch available courses. Please try again later.");
     }
   };
 
   const fetchRegisteredCourses = async () => {
+    if (!user) return;
     try {
-      const userId = localStorage.getItem('userId');
-      const response = await axios.get(`http://localhost:5000/student/${userId}/courses`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      });
+      const response = await axios.get(
+        `http://localhost:5000/student/${user._id}/courses`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
       setRegisteredCourses(response.data);
     } catch (err) {
-      setError('Failed to fetch registered courses. Please try again later.');
+      setError("Failed to fetch registered courses. Please try again later.");
     }
   };
 
   const fetchLessons = async (courseId) => {
     try {
-      const response = await axios.get(`http://localhost:5000/student/${courseId}/lessons`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      });
+      const response = await axios.get(
+        `http://localhost:5000/student/${courseId}/lessons`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
       setLessons(response.data);
     } catch (err) {
-      setError('Failed to fetch lessons. Please try again later.');
+      setError("Failed to fetch lessons. Please try again later.");
     }
   };
 
   const fetchQuizzes = async (courseId) => {
     try {
-      const response = await axios.get(`http://localhost:5000/student/${courseId}/quizzes`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      });
+      const response = await axios.get(
+        `http://localhost:5000/student/${courseId}/quizzes`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
       setQuizzes(response.data);
     } catch (err) {
-      setError('Failed to fetch quizzes. Please try again later.');
+      setError("Failed to fetch quizzes. Please try again later.");
     }
   };
 
   const handleCourseClick = (course) => {
     setSelectedCourse(course);
-    setView('lessons'); // Default to lessons view
+    setView("lessons"); // Default to lessons view
     fetchLessons(course._id);
     fetchQuizzes(course._id);
   };
 
   const handleQuizTake = (quiz) => {
     setQuizToTake(quiz);
-    setAnswers(Array(quiz.questions.length).fill('')); // Initialize empty answers
+    setAnswers(Array(quiz.questions.length).fill("")); // Initialize empty answers
   };
 
   const handleAnswerChange = (index, value) => {
@@ -83,36 +102,45 @@ const StudentDashboard = () => {
 
   const submitQuiz = async () => {
     try {
-      const userId = localStorage.getItem('userId');
       const response = await axios.post(
         `http://localhost:5000/student/${selectedCourse._id}/quiz/${quizToTake._id}/attempt`,
         { answers },
         {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
       alert(`Quiz submitted successfully! Your score: ${response.data.score}`);
       setQuizToTake(null); // Reset quiz view
     } catch (err) {
-      alert('Failed to submit quiz. Please try again.');
+      alert("Failed to submit quiz. Please try again.");
     }
   };
 
   const handleRegister = async (courseId) => {
     try {
-      const userId = localStorage.getItem('userId');
       await axios.post(
-        `http://localhost:5000/student/${userId}/courses/register`,
+        `http://localhost:5000/student/${user._id}/courses/register`,
         { courseId },
-        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
       );
-      alert('Successfully registered for the course!');
+      alert("Successfully registered for the course!");
       fetchRegisteredCourses();
       fetchAvailableCourses();
     } catch (err) {
-      alert('Error registering for the course. Please try again.');
+      alert("Error registering for the course. Please try again.");
     }
   };
+
+  // If loading or user is not authenticated, show loading message or redirect
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isAuthenticated) {
+    return <div>You are not authenticated. Please log in.</div>;
+  }
 
   return (
     <div className="dashboard">
@@ -151,7 +179,9 @@ const StudentDashboard = () => {
                   <div key={course._id} className="course-card">
                     <h3>{course.title}</h3>
                     <p>{course.description}</p>
-                    <button onClick={() => handleRegister(course._id)}>Register</button>
+                    <button onClick={() => handleRegister(course._id)}>
+                      Register
+                    </button>
                   </div>
                 ))}
               </div>
@@ -160,7 +190,10 @@ const StudentDashboard = () => {
         </>
       ) : (
         <div className="course-details">
-          <button className="back-button" onClick={() => setSelectedCourse(null)}>
+          <button
+            className="back-button"
+            onClick={() => setSelectedCourse(null)}
+          >
             Back to Courses
           </button>
           <h2 className="course-title">{selectedCourse.title}</h2>
@@ -168,20 +201,20 @@ const StudentDashboard = () => {
 
           <div className="course-options">
             <button
-              className={`course-option ${view === 'lessons' ? 'active' : ''}`}
-              onClick={() => setView('lessons')}
+              className={`course-option ${view === "lessons" ? "active" : ""}`}
+              onClick={() => setView("lessons")}
             >
               Lessons
             </button>
             <button
-              className={`course-option ${view === 'quizzes' ? 'active' : ''}`}
-              onClick={() => setView('quizzes')}
+              className={`course-option ${view === "quizzes" ? "active" : ""}`}
+              onClick={() => setView("quizzes")}
             >
               Quizzes
             </button>
           </div>
 
-          {view === 'lessons' && (
+          {view === "lessons" && (
             <div className="lesson-section">
               <h3>Lessons</h3>
               {lessons.length === 0 ? (
@@ -204,7 +237,7 @@ const StudentDashboard = () => {
             </div>
           )}
 
-          {view === 'quizzes' && quizToTake === null && (
+          {view === "quizzes" && quizToTake === null && (
             <div className="quiz-section">
               <h3>Quizzes</h3>
               {quizzes.length === 0 ? (
@@ -214,7 +247,9 @@ const StudentDashboard = () => {
                   {quizzes.map((quiz) => (
                     <li key={quiz._id} className="quiz-card">
                       <h4>{quiz.title}</h4>
-                      <button onClick={() => handleQuizTake(quiz)}>Take Quiz</button>
+                      <button onClick={() => handleQuizTake(quiz)}>
+                        Take Quiz
+                      </button>
                     </li>
                   ))}
                 </ul>
@@ -235,7 +270,9 @@ const StudentDashboard = () => {
                           type="radio"
                           name={`question-${index}`}
                           value={option.text}
-                          onChange={() => handleAnswerChange(index, option.text)}
+                          onChange={() =>
+                            handleAnswerChange(index, option.text)
+                          }
                         />
                         {option.text}
                       </label>
