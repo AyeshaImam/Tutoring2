@@ -93,7 +93,7 @@ router.post("/login", async (req, res) => {
     res.status(200).json({
       token,
       role: user.role,
-      userId: user._id,
+      _id: user._id,
       fullName: user.fullName, // Include the fullName field
     });
   } catch (error) {

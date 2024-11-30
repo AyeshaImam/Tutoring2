@@ -31,18 +31,18 @@ const Login = () => {
 
       if (response.ok) {
         const data = await response.json();
-        const { token, role, userId, fullName } = data; // Ensure backend sends `fullName` in the response
+        const { token, role, _id, fullName } = data; // Ensure backend sends `fullName` in the response
 
-        // Store token, role, and userId in localStorage
+        // Store token, role, and _id in localStorage
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
-        localStorage.setItem("userId", userId);
+        localStorage.setItem("_id", _id);
         if (fullName) {
           localStorage.setItem("fullName", fullName); // Store fullName for personalization
         }
 
         // Update context with user data
-        setUser({ fullName, email: formData.email, role, userId });
+        setUser({ fullName, email: formData.email, role, _id });
         setIsAuthenticated(true);
 
         // Redirect based on role
