@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import './Login.css';
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../components/UserContext"; // Import UserContext
+import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
+  const { setUser, setIsAuthenticated } = useContext(UserContext); // Use context to update user and auth state
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -17,13 +19,13 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("http://localhost:5000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
@@ -32,30 +34,34 @@ const Login = () => {
         const { token, role, userId, fullName } = data; // Ensure backend sends `fullName` in the response
 
         // Store token, role, and userId in localStorage
-        localStorage.setItem('token', token);
-        localStorage.setItem('role', role);
-        localStorage.setItem('userId', userId);
+        localStorage.setItem("token", token);
+        localStorage.setItem("role", role);
+        localStorage.setItem("userId", userId);
         if (fullName) {
-          localStorage.setItem('fullName', fullName); // Store fullName for personalization
+          localStorage.setItem("fullName", fullName); // Store fullName for personalization
         }
 
+        // Update context with user data
+        setUser({ fullName, email: formData.email, role, userId });
+        setIsAuthenticated(true);
+
         // Redirect based on role
-        if (role === 'student') {
-          navigate('/dashboard/student');
-        } else if (role === 'teacher') {
-          navigate('/dashboard/teacher');
-        } else if (role === 'admin') {
-          navigate('/dashboard/admin');
+        if (role === "student") {
+          navigate("/dashboard/student");
+        } else if (role === "teacher") {
+          navigate("/dashboard/teacher");
+        } else if (role === "admin") {
+          navigate("/dashboard/admin");
         } else {
-          throw new Error('Unknown role'); // Handle unexpected roles
+          throw new Error("Unknown role"); // Handle unexpected roles
         }
       } else {
         const errorData = await response.json();
-        setError(errorData.message || 'Invalid email or password'); // Use backend error message if available
+        setError(errorData.message || "Invalid email or password"); // Use backend error message if available
       }
     } catch (err) {
-      console.error('Login error:', err);
-      setError('Login failed. Please try again.');
+      console.error("Login error:", err);
+      setError("Login failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -92,7 +98,7 @@ const Login = () => {
           />
 
           <button type="submit" className="login-button" disabled={isLoading}>
-            {isLoading ? 'Loading...' : 'Log In'}
+            {isLoading ? "Loading..." : "Log In"}
           </button>
         </form>
 

@@ -1,58 +1,62 @@
-// src/components/Navbar.js
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import './Navbar.css';
-
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "./UserContext"; // Import the UserContext
+import "./Navbar.css";
+import { TbLogout2 } from "react-icons/tb";
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState('');
+  const { user, isAuthenticated, loading, setIsAuthenticated } =
+    useContext(UserContext); // Use context
   const navigate = useNavigate();
 
-  // Check login status on component mount
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    const storedUsername = localStorage.getItem('username');
-    if (token && storedUsername) {
-      setIsLoggedIn(true);
-      setUsername(storedUsername);
-    } else {
-      setIsLoggedIn(false);
-      setUsername('');
-    }
-  }, []);
-
+  // Handle logout
   const handleLogout = () => {
     // Clear user session data from localStorage
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    localStorage.removeItem('role');
-    setIsLoggedIn(false);
-    setUsername('');
-    navigate('/'); // Redirect to the homepage
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("role");
+    setIsAuthenticated(false); // Update context state
+    navigate("/"); // Redirect to the homepage
   };
+
+  // If still loading, return a loading state or empty (e.g., a spinner)
+  if (loading) {
+    return null; // You can show a loading spinner here
+  }
 
   return (
     <nav className="navbar">
       <ul className="navbar-list">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/courses">Courses</Link></li>
-        <li><Link to="/how-it-works">How It Works</Link></li>
-        <li><Link to="/profile">Profile</Link></li>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/courses">Courses</Link>
+        </li>
+        <li>
+          <Link to="/how-it-works">How It Works</Link>
+        </li>
 
-        {isLoggedIn ? (
-          <div className="navbar-user">
-            <li className="welcome-text">Welcome, {username}</li>
-            <li>
-              <button onClick={handleLogout} className="logout-button">
-                Logout
-              </button>
+        {/* If authenticated, show Profile and Welcome message */}
+        {isAuthenticated ? (
+          <>
+            <li className="welcome-text">
+              <Link to="/profile">Welcome, {user?.fullName || "User"}</Link>
             </li>
-          </div>
+            {/* Assuming user has fullName */}
+            <li onClick={handleLogout} className="logout-button">
+              <TbLogout2 color="red" size={20} />
+            </li>
+          </>
         ) : (
-          <div className="navbar-auth">
-            <li><Link to="/login">Login</Link></li>
-            <li><Link to="/register">Register</Link></li>
-          </div>
+          // If not authenticated, show Login/Register links
+          <>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/register">Register</Link>
+            </li>
+          </>
         )}
       </ul>
     </nav>
